@@ -3,8 +3,8 @@
 import { tool } from "ai";
 import { z } from "zod";
 
-export const tavilySearchTool = tool({
-    description: "使用Tavily搜索工具，搜索互联网上的信息。返回包含标题、URL、内容摘要和相关性评分的搜索结果。",
+export const SearchTool = tool({
+    description: "使用搜索工具，搜索互联网上的信息。返回包含标题、URL、内容摘要和相关性评分的搜索结果。",
     parameters: z.object({
         query: z.string().describe("需要搜索的查询内容"),
         max_results: z.number().optional().default(20).describe("最大搜索结果数量，默认为20"),
