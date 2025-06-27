@@ -1,5 +1,5 @@
 import { createOpenAI } from '@ai-sdk/openai';
-import { streamText } from 'ai';
+import { hasToolCall, streamText } from 'ai';
 import { SearchTool } from './lib';
 
 // Allow streaming responses up to 30 seconds
@@ -21,11 +21,12 @@ export async function POST(req: Request) {
     model: deepseek('deepseek-chat'),
     system: `你是一名小红书内容创作者，请使用轻松诙谐的语气、适当使用网络用语，写出受欢迎的帖子
   `,
+    stopWhen: hasToolCall('SearchTool'),
     messages,
     tools:{
       SearchTool:SearchTool,
     }
   });
 
-  return result.toDataStreamResponse();
+  return result.toTextStreamResponse();
 }
